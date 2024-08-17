@@ -1,6 +1,5 @@
 'use server'
 
-import { signUpSchema, SignUpValues } from '@/validation/signUp.schema'
 import { Argon2id } from 'oslo/password'
 import { generateIdFromEntropySize } from 'lucia'
 import prisma from '@/lib/prisma'
@@ -9,6 +8,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { isRedirectError } from 'next/dist/client/components/redirect'
 import { signInSchema } from '@/validation/login.schema'
+import { signUpSchema, SignUpValues } from '@/validation/signup.schema'
 
 export async function signUp(
   credentials: SignUpValues
