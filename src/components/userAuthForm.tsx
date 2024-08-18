@@ -34,7 +34,6 @@ function UserAuthFormCard({ children, type }: CardWrapperProps) {
             />
             continue with google
           </Button>
-
           {type === "sign-in" ? (
             <p className='mx-auto mt-4 text-center text-xl text-dark-grey'>
               Don&apos;t have an account ?{" "}

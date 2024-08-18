@@ -10,8 +10,6 @@ export default async function Layout({
 }) {
   const session = await validateRequest()
 
-  if (!session.user) redirect('/signin')
-
   return (
     <SessionProvider value={session}>
       <div>{children}</div>
