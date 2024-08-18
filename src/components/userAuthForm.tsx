@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { Button } from './ui/button'
-import Link from 'next/link'
-import AnimationWrapper from './common/page-animation'
+import Image from "next/image";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import AnimationWrapper from "./common/page-animation";
 
 interface CardWrapperProps {
-  children?: React.ReactNode
-  type: string
+  children?: React.ReactNode;
+  type: string;
 }
 
 function UserAuthFormCard({ children, type }: CardWrapperProps) {
@@ -16,7 +16,7 @@ function UserAuthFormCard({ children, type }: CardWrapperProps) {
       <section className='h-cover flex items-center justify-center'>
         <div className='w-[80%] max-w-[400px]'>
           <h1 className='mb-8 text-center font-gelasio text-4xl capitalize'>
-            {type === 'sign-in' ? 'Welcome back' : 'Join us today'}
+            {type === "sign-in" ? "Welcome back" : "Join us today"}
           </h1>
           {children}
           <div className='relative my-5 flex w-full items-center gap-2 font-bold uppercase text-black opacity-10'>
@@ -35,9 +35,9 @@ function UserAuthFormCard({ children, type }: CardWrapperProps) {
             continue with google
           </Button>
 
-          {type === 'sign-in' ? (
+          {type === "sign-in" ? (
             <p className='mx-auto mt-4 text-center text-xl text-dark-grey'>
-              Don't have an account ?
+              Don&apos;t have an account ?{" "}
               <Link
                 href='/signup'
                 className='ml-1 text-xl text-black underline dark:text-white'
@@ -47,7 +47,7 @@ function UserAuthFormCard({ children, type }: CardWrapperProps) {
             </p>
           ) : (
             <p className='mt-4 text-center text-xl text-dark-grey'>
-              Already member ?
+              Already member ?{" "}
               <Link
                 href='/signin'
                 className='text-balack mx-auto ml-1 text-xl underline dark:text-white'
@@ -59,7 +59,7 @@ function UserAuthFormCard({ children, type }: CardWrapperProps) {
         </div>
       </section>
     </AnimationWrapper>
-  )
+  );
 }
 
-export default UserAuthFormCard
+export default UserAuthFormCard;
