@@ -9,11 +9,11 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
-  console.log(post)
+  //console.log(post)
   return (
     <Link
       className='mb-4 flex items-center gap-8 border-b border-grey pb-5'
-      href={'/'}
+      href={`/blog/${post.slug}`}
     >
       <div className='w-full'>
         <div className='mb-7 flex items-center gap-2'>
