@@ -1,5 +1,5 @@
 import { submitPost } from '@/lib/actions/post.action'
-import { PostsPage } from '@/types'
+import { PostData, PostsPage } from '@/types'
 import {
   InfiniteData,
   QueryFilters,
@@ -12,7 +12,7 @@ export function useSubmitPostMutation() {
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: submitPost,
-    onSuccess: async newPost => {
+    onSuccess: async (newPost:PostData) => {
       const queryFilter: QueryFilters = {
         queryKey: ['post-feed', 'home-feed']
       }
@@ -20,20 +20,23 @@ export function useSubmitPostMutation() {
 
       queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
         queryFilter,
-        oldData => {
+       ( oldData:InfiniteData<PostsPage, string | null>|undefined )=> {
+          if (!oldData) return oldData;
           const firstPage = oldData?.pages[0]
-          if (firstPage) {
-            return {
-              pageParams: oldData.pageParams,
-              pages: [
-                {
-                  posts: [newPost, ...firstPage.posts],
-                  nextCursor: firstPage.nextCursor
-                },
-                ...oldData.pages.slice(1)
-              ]
-            }
+         if(firstPage){
+          return{
+            pageParams:oldData.pageParams,
+            pages: [
+              {
+                posts: [newPost, ...firstPage.posts],
+                nextCursor: firstPage.nextCursor
+              },
+              ...oldData.pages.slice(1),
+            ]
           }
+         }
+          
+       
         }
       )
       queryClient.invalidateQueries({

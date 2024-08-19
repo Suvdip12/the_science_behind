@@ -39,7 +39,7 @@ export default function UserButton({ className }: UserButtonProps) {
       <DropdownMenuContent>
         <DropdownMenuLabel>Logged in as @{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`/users/${user.username}`}>
+        <Link href={`/users/${user.name}`}>
           <DropdownMenuItem>
             <UserIcon className='mr-2 size-4' />
             Profile

@@ -29,7 +29,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </ReactQueryProvider>
-        <Toaster richColors closeButton />
+        <Toaster richColors closeButton position='top-right' />
       </body>
     </html>
   )

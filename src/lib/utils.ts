@@ -1,4 +1,4 @@
-import { MediaObject } from '@/types'
+import { MediaObject, UploadedFile } from '@/types'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { formatDistanceToNowStrict, formatDate } from 'date-fns'
@@ -27,15 +27,13 @@ export function formatBytes(
   }`
 }
 
-export function absoluteUrl(path: string) {
-  return `${env.NEXT_PUBLIC_APP_URL}${path}`
-}
 
-export function getMediaIds(mediaObjects: MediaObject[]): string[] {
+
+export function getMediaIds(mediaObjects: UploadedFile<unknown>[]): string[] {
   if (!mediaObjects || mediaObjects.length === 0) {
     return []
   }
-  return mediaObjects.map(mediaObject => mediaObject.serverData?.mediaId || '')
+  return mediaObjects.map(mediaObject => mediaObject.serverData as string )
 }
 
 export function formateRelativeDate(from: Date) {

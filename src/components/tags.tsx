@@ -1,7 +1,7 @@
 import { X } from 'lucide-react'
 import React from 'react'
 type TagCardProps = {
-  title: string
+  tag: string
   onTagDelete: (tag: string) => void
 }
 function Tag({ tag, onTagDelete }: TagCardProps) {

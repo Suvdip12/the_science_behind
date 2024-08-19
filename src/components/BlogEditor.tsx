@@ -8,41 +8,22 @@ import { FileUploader } from './file-uploader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { blogSchema } from '@/validation/blog.schema'
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+
   FormMessage
 } from '@/components/ui/form'
 import Tag from './tags'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList
-} from '@/components/ui/command'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
 import { cn, getMediaIds } from '@/lib/utils'
-import { categories } from '@/data'
-import { Check, ChevronsUpDown, X } from 'lucide-react'
+import {  X } from 'lucide-react'
 import Editor from '@/components/editor/editor'
-import { submitPost } from '@/lib/actions/post.action'
 import LoadingButton from './LoadingButton'
-import { toast } from 'sonner'
-import { uploadFiles } from '@/lib/uploadthing'
 import { useSubmitPostMutation } from './editor/mutation'
-import AttachmentPreviews from './UploadedFilesCard'
 import Image from 'next/image'
+import { z } from 'zod'
 export const defaultValue = {
   type: 'doc',
   content: [
@@ -55,20 +36,20 @@ export const defaultValue = {
 type Props = {}
 
 function BlogEditor({}: Props) {
-  const [tags, setTags] = useState<Array>([])
+  const [tags, setTags] = useState<string[]>([])
   const [bannerUrl, setBannerUrl] = useState<string>('')
   const [isPending, startTransition] = useTransition()
   const mutation = useSubmitPostMutation()
   const { onUpload, progresses, uploadedFiles, isUploading, removeAttachment } =
     useUploadFile('banner', { defaultUploadedFiles: [] })
 
-  const handleTitleKeyKeyDown = e => {
+  const handleTitleKeyKeyDown =(e:any) => {
     if (e.keyCode === 13) {
       e.preventDefault()
     }
   }
 
-  const handleTopicKeyDown = e => {
+  const handleTopicKeyDown = (e:any) => {
     if (e.keyCode === 13 || e.keyCode === 188) {
       e.preventDefault()
       let tag = e.target.value
@@ -96,13 +77,13 @@ function BlogEditor({}: Props) {
       .replace(/[^a-zA-Z\d\s]+/g, '-')
       .replace(/\s/g, '-')
       .replace(/[^a-zA-Z0-9]+/g, '-')
-  })
+  },[])
 
   const form = useForm<z.infer<typeof blogSchema>>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
       description: '',
-      banners: [],
+      mediaIds: [],
       title: '',
       content: '',
       slug: '',
@@ -112,7 +93,7 @@ function BlogEditor({}: Props) {
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
       if (name === 'title') {
-        form.setValue('slug', slugTransform(value.title))
+        form.setValue('slug', slugTransform(value.title||""))
       }
     })
     return () => subscription.unsubscribe()
@@ -131,8 +112,8 @@ function BlogEditor({}: Props) {
       }
     )
   }
-  //console.log('check', getMediaIds(uploadedFiles))
-  console.log(uploadedFiles)
+  console.log('check', getMediaIds(uploadedFiles))
+  //console.log(uploadedFiles)
 
   return (
     <>

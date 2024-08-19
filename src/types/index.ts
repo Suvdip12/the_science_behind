@@ -12,9 +12,9 @@ export const PostdataInclude = {
     select: {
       name: true,
       avatarUrl: true
-    }
+    },
   },
-  attachments: true
+  attachments:true
 } satisfies Prisma.PostInclude
 
 export type PostData = Prisma.PostGetPayload<{

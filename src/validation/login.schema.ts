@@ -8,4 +8,4 @@ export const signInSchema = z.object({
     .min(8, 'Must be at least 8 characters')
 })
 
-export type SignInValues = z.infer<typeof SignInSchema>
+export type SignInValues = z.infer<typeof signInSchema>

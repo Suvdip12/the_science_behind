@@ -2,6 +2,7 @@ import { PostData } from '@/types'
 import Link from 'next/link'
 import avatar from '@/assets/avatar-placeholder.png'
 import Image from 'next/image'
+import { formateRelativeDate } from '@/lib/utils'
 
 interface PostProps {
   post: PostData

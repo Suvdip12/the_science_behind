@@ -3,12 +3,10 @@
 import { validateRequest } from '@/auth'
 import { blogSchema, BlogValues } from '@/validation/blog.schema'
 import prisma from '@/lib/prisma'
-import { getPostDataInclude, PostdataInclude } from '@/types'
-import { isRedirectError } from 'next/dist/client/components/redirect'
+import {  PostData, PostdataInclude } from '@/types'
 
-export async function submitPost(inputs: BlogValues) {
-  try {
-    const { user } = await validateRequest()
+export async function submitPost(inputs: BlogValues): Promise<PostData>  {
+  const { user } = await validateRequest()
     if (!user) throw new Error('Unauthorized')
     const { content, slug, title, topics, mediaIds, description } =
       blogSchema.parse(inputs)
@@ -29,7 +27,4 @@ export async function submitPost(inputs: BlogValues) {
     })
     //console.log(newPost)
     return newPost
-  } catch (error) {
-    console.log('error on post!', error)
-  }
 }

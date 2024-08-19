@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-import AnimationWrapper from '../common/page-animation'
 import InPageNavigation from './InPageNavigation'
 import HomeFeed from './HomeFeed'
 import TrendingBlogs from './TrendingBlogs'
@@ -24,6 +22,7 @@ function HomePage({}: Props) {
           <InPageNavigation
             defaultHidden={['trending blogs']}
             routes={['home', 'trending blogs']}
+            defaultActiveIndex={0}
           >
             <HomeFeed />
             <TrendingBlogs />

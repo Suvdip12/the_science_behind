@@ -7,7 +7,7 @@ import { lucia, validateRequest } from '@/auth'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { isRedirectError } from 'next/dist/client/components/redirect'
-import { signInSchema } from '@/validation/login.schema'
+import { signInSchema, SignInValues } from '@/validation/login.schema'
 import { signUpSchema, SignUpValues } from '@/validation/signup.schema'
 
 export async function signUp(

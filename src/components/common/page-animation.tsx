@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import {motion,AnimatePresence, MotionProps, Transition, Variants,} from "framer-motion"
+import {motion, MotionProps, Transition, Variants,} from "framer-motion"
 
 interface AnimationWrapperProps extends MotionProps {
   children: React.ReactNode;

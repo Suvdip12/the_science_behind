@@ -1,8 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
-
-type Props = {}
-
+import  { useEffect, useRef, useState } from 'react'
 function InPageNavigation({
   routes,
   defaultActiveIndex = 0,
@@ -10,24 +7,28 @@ function InPageNavigation({
   children
 }: {
   routes: string[]
-  defaultActiveIndex: boolean
-  defaultHidden: string[]
-  children: React.ReactNode
+  defaultActiveIndex?: number
+  defaultHidden?: string[]
+  children: React.ReactNode | React.ReactNode[]
 }) {
-  const activeTabLineRef = useRef()
-  const activeTabRef = useRef()
+  const activeTabLineRef = useRef<HTMLHRElement|null>(null)
+  const activeTabRef = useRef<HTMLButtonElement|null>(null)
   const [inPageNavIndex, setInPageNavIndex] =
-    useState<boolean>(defaultActiveIndex)
+    useState<number>(defaultActiveIndex)
 
-  const changePageState = (btn, index) => {
+  const changePageState = (btn:HTMLButtonElement, index:number) => {
     let { offsetWidth, offsetLeft } = btn
+    if (!activeTabLineRef.current) return
     activeTabLineRef.current.style.width = offsetWidth + 'px'
     activeTabLineRef.current.style.left = offsetLeft + 'px'
     setInPageNavIndex(index)
   }
   useEffect(() => {
-    changePageState(activeTabRef.current, defaultActiveIndex)
-  }, [])
+    if(activeTabRef.current){
+      changePageState(activeTabRef.current, defaultActiveIndex)
+
+    }
+  }, [defaultActiveIndex])
 
   return (
     <>
@@ -35,7 +36,7 @@ function InPageNavigation({
         {routes.map((route, index) => (
           <button
             ref={index === defaultActiveIndex ? activeTabRef : null}
-            onClick={e => changePageState(e.target, index)}
+            onClick={e => changePageState(e.target as HTMLButtonElement, index)}
             className={`p-4 px-5 capitalize ${inPageNavIndex === index ? 'text-black dark:text-white' : 'text-dark-grey'} ${defaultHidden.includes(route) ? 'md:hidden' : ''}`}
             key={index}
           >
